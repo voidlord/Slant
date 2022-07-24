@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlatformGenerator : MonoBehaviour {
+    public GameManager gameManager;
+
     static GameObject[] platformPrefabs;
     List<GameObject> spawnedPlatforms;
 
@@ -43,7 +45,7 @@ public class PlatformGenerator : MonoBehaviour {
     }
 
     void Update() {
-        while (spawnedPlatforms.Count < maxSpawn) {
+        while ((!gameManager.GameHasEnded) && (spawnedPlatforms.Count < maxSpawn)) {
             int x = Random.Range(0, platformPrefabs.Length);
             SpawnPlatform(platformPrefabs[x]);
 		}
@@ -63,6 +65,10 @@ public class PlatformGenerator : MonoBehaviour {
 
         spawnedPlatforms.Add(gameObject);
     }
+
+    public List<GameObject> GetSpawnedPlatformsList() {
+        return spawnedPlatforms;
+	}
 
     public void ClearFirstPlatform() {
         if (!passedFirst) {

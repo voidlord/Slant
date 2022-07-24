@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour {
+    public GameManager gameManager;
+
     public Transform player;
     public Vector3 offset;
 
     void Update() {
-        transform.position = player.position + offset;
+        if (!gameManager.GameHasEnded) {
+            transform.position = player.position + offset;
+        } else {
+            transform.LookAt(player.position);
+		}
     }
 }
