@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1699531911852369346}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 20}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 1, z: 40}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -108,8 +108,8 @@ GameObject:
   - component: {fileID: 9109638205556650550}
   - component: {fileID: 7810704566942592177}
   m_Layer: 0
-  m_Name: Simple
-  m_TagString: Untagged
+  m_Name: Simple Straight
+  m_TagString: Start
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,5 +142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4012fe18e6cecaa4e8b135d97a8cc19b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yOffset: 2
+  xOffset: 0
+  yOffset: 0
   zOffset: 40

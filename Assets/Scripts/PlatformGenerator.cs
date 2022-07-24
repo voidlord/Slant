@@ -8,10 +8,15 @@ public class PlatformGenerator : MonoBehaviour {
     static GameObject[] platformPrefabs;
     List<GameObject> spawnedPlatforms;
 
-    const int maxSpawn = 20;
+    public int maxSpawn = 20;
+    public float distanceBetween = 1;
+    public float distanceFall = 2;
 
-    int yOffset = 0;
-    int zOffset = 0;
+    float xOffset = 0;
+    float yOffset = 0;
+    float zOffset = 0;
+
+    int lastPlatform = -1;
 
     bool passedFirst = false;
 
@@ -31,7 +36,7 @@ public class PlatformGenerator : MonoBehaviour {
         GameObject start = null;
 
         for (int i = 0; i < platformPrefabs.Length; i++) {
-            if (platformPrefabs[i].name == "Simple") {
+            if (platformPrefabs[i].tag == "Start") {
                 start = platformPrefabs[i];
                 break;
 			}
@@ -46,8 +51,16 @@ public class PlatformGenerator : MonoBehaviour {
 
     void FixedUpdate() {
         while ((!gameManager.GameHasEnded) && (spawnedPlatforms.Count < maxSpawn)) {
-            int x = Random.Range(0, platformPrefabs.Length);
+            int x = 0;
+            if (platformPrefabs.Length > 1) {
+                x = Random.Range(0, platformPrefabs.Length);
+                while (x == lastPlatform) {
+                    x = Random.Range(0, platformPrefabs.Length);
+                }
+            }
+
             SpawnPlatform(platformPrefabs[x]);
+            lastPlatform = x;
 		}
     }
 
@@ -56,11 +69,14 @@ public class PlatformGenerator : MonoBehaviour {
 
         gameObject = Instantiate<GameObject>(platform);
 
-        gameObject.transform.SetParent(transform);
-        gameObject.transform.Translate(0, yOffset, zOffset);
+        Debug.Log(zOffset);
 
-        yOffset -= gameObject.GetComponent<Platform>().yOffset;
-        zOffset += gameObject.GetComponent<Platform>().zOffset;
+        gameObject.transform.SetParent(transform);
+        gameObject.transform.Translate(xOffset, yOffset, zOffset + gameObject.GetComponent<Platform>().zOffset / 2);
+
+        xOffset += gameObject.GetComponent<Platform>().xOffset;
+        yOffset += gameObject.GetComponent<Platform>().yOffset - distanceFall;
+        zOffset += gameObject.GetComponent<Platform>().zOffset + distanceBetween;
 
         spawnedPlatforms.Add(gameObject);
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Platform : MonoBehaviour {
-	public int yOffset;
-	public int zOffset;
+	public float xOffset;
+	public float yOffset;
+	public float zOffset;
 }

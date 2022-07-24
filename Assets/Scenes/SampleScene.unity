@@ -516,6 +516,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 220785753}
+  maxSpawn: 20
+  distanceBetween: 1
+  distanceFall: 2
 --- !u!4 &1677541050
 Transform:
   m_ObjectHideFlags: 0
