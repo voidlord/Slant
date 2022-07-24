@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Update() {
 		if (Input.GetKeyDown(KeyCode.LeftShift)) {
-			maxSpeed *= defaultMaxSpeed * 1 + boostAmount;
+			maxSpeed = defaultMaxSpeed * 1 + boostAmount;
 		}
 
 		if (Input.GetKeyUp(KeyCode.LeftShift)) {
