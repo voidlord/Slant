@@ -31,6 +31,12 @@ public class GameManager : MonoBehaviour {
         if (playerPos < deadPos) {
             EndGame();
 		}
+
+        if (!gameHasEnded) {
+            if (player.position.z > (currentPlatform.transform.position.z + currentPlatform.GetComponent<Platform>().zOffset)) {
+                platformGenerator.ClearFirstPlatform();
+			}
+		}
 	}
 
 	public void EndGame() {

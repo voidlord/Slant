@@ -481,6 +481,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 220785753}
   rb: {fileID: 1370080959}
+  boostAmount: 20
+  defaultMaxSpeed: 25
   maxSpeed: 25
   forwardForce: 5000
   sidewaysForce: 250

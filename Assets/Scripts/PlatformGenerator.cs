@@ -8,7 +8,7 @@ public class PlatformGenerator : MonoBehaviour {
     static GameObject[] platformPrefabs;
     List<GameObject> spawnedPlatforms;
 
-    const int maxSpawn = 10;
+    const int maxSpawn = 20;
 
     int yOffset = 0;
     int zOffset = 0;
@@ -44,7 +44,7 @@ public class PlatformGenerator : MonoBehaviour {
         }
     }
 
-    void Update() {
+    void FixedUpdate() {
         while ((!gameManager.GameHasEnded) && (spawnedPlatforms.Count < maxSpawn)) {
             int x = Random.Range(0, platformPrefabs.Length);
             SpawnPlatform(platformPrefabs[x]);
@@ -57,7 +57,6 @@ public class PlatformGenerator : MonoBehaviour {
         gameObject = Instantiate<GameObject>(platform);
 
         gameObject.transform.SetParent(transform);
-        gameObject.GetComponentInChildren<PlatformEndTrigger>().platformGenerator = GetComponent<PlatformGenerator>();
         gameObject.transform.Translate(0, yOffset, zOffset);
 
         yOffset -= gameObject.GetComponent<Platform>().yOffset;

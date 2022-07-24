@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour {
 	public GameManager gameManager;
 	public Rigidbody rb;
 
+	public float boostAmount = 25;
+	public float defaultMaxSpeed = 25;
 	public float maxSpeed = 25;
 	public float forwardForce = 2000f;
 	public float sidewaysForce = 500f;
@@ -24,5 +26,17 @@ public class PlayerMovement : MonoBehaviour {
 				rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.Impulse);
 			}
 		}
+	}
+
+	void Update() {
+		if (Input.GetKeyDown(KeyCode.LeftShift)) {
+			maxSpeed *= defaultMaxSpeed * 1 + boostAmount;
+		}
+
+		if (Input.GetKeyUp(KeyCode.LeftShift)) {
+			maxSpeed = defaultMaxSpeed;
+		}
+
+		Debug.Log(rb.velocity.z + " (" + maxSpeed + " )");
 	}
 }
