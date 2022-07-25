@@ -10,12 +10,12 @@ public class PlayerMovement : MonoBehaviour {
 	public Material defaultMaterial;
 	public Material boostedMaterial;
 
-	public float boostAmount;
-	public float maxSpeed;
-	public float defaultMaxSpeed;
-	public float forwardForce;
-	public float defaultForwardForce;
-	public float sidewaysForce;
+	public float boostAmount = 50;
+	public float maxSpeed = 25;
+	public float defaultMaxSpeed = 25;
+	public float forwardForce = 5000;
+	public float defaultForwardForce = 5000;
+	public float sidewaysForce = 250;
 
 	void Awake() {
 		StopMovement();
@@ -23,7 +23,11 @@ public class PlayerMovement : MonoBehaviour {
 
 	void FixedUpdate() {
 		if (gameManager.GameState == GameState.Playing) {
-			if (rb.velocity.z < maxSpeed) {
+			int distance = (int)player.transform.position.z;
+
+			float calculatedMaxSpeed = maxSpeed + Mathf.Sqrt(distance / 100);
+
+			if (rb.velocity.z < calculatedMaxSpeed) {
 				rb.AddForce(0, 0, forwardForce * Time.deltaTime);
 			}
 

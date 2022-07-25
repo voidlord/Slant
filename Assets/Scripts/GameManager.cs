@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
     public PostGameMenu postGameMenuUI;
     public Transform player;
 
-    int fallDistance = 15;
+    public int fallDistance = 15;
 
     GameState gameState;
     int highScore = 0;
