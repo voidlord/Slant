@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
     int fallDistance = 15;
 
     GameState gameState;
+    int highScore = 0;
 
     public GameState GameState { get {
             return gameState;
@@ -76,8 +77,11 @@ public class GameManager : MonoBehaviour {
             postGameMenuUI.Show();
 
             int finalScore = scoreUI.GetTime();
+            if (finalScore > highScore) {
+                highScore = finalScore;
+			}
 
-            postGameMenuUI.SetScoreText(finalScore);
+            postGameMenuUI.SetScoreText(finalScore, highScore);
 
             scoreUI.ResetTimer();
         }
