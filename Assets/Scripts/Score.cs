@@ -5,16 +5,12 @@ using TMPro;
 
 public class Score : MonoBehaviour {
 	public GameManager gameManager;
-	public Canvas scoreUI;
-
-	TextMeshPro scoreUIText;
+	public TextMeshProUGUI scoreUIText;
 
 	System.DateTime startTime;
 
 	void Awake() {
-		scoreUIText = GetComponent<TextMeshPro>();
-
-		ClearTime();
+		ResetTimer();
 	}
 
 	void Update() {
@@ -28,11 +24,11 @@ public class Score : MonoBehaviour {
 	}
 
 	public void Show() {
-		scoreUI.enabled = true;
+		GetComponent<Canvas>().enabled = true;
 	}
 
 	public void Hide() {
-		scoreUI.enabled = false;
+		GetComponent<Canvas>().enabled = false;
 	}
 
 	public void StartTimer() {
@@ -45,7 +41,7 @@ public class Score : MonoBehaviour {
 		return timeSpan.Seconds;
 	}
 
-	public void ClearTime() {
+	public void ResetTimer() {
 		startTime = System.DateTime.MinValue;
 	}
 }

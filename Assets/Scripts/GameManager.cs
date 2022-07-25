@@ -11,9 +11,11 @@ public class GameManager : MonoBehaviour {
     public PlatformGenerator platformGenerator;
     public PlayerMovement playerMovement;
     public Score scoreUI;
+    public Canvas mainMenuUI;
+    public PostGameMenu postGameMenuUI;
     public Transform player;
 
-    int fallDistance = 10;
+    int fallDistance = 15;
 
     GameState gameState;
 
@@ -26,37 +28,44 @@ public class GameManager : MonoBehaviour {
         gameState = GameState.MainMenu;
 
         scoreUI.Hide();
+        mainMenuUI.GetComponent<Canvas>().enabled = true;
 	}
 
 	void FixedUpdate() {
         if (gameState == GameState.Playing) {
             float playerPos = player.position.y;
 
-            int curr = 1;
-            if (platformGenerator.GetSpawnedPlatformsList().Count < 2) {
-                curr = 0;
-		    }
-            GameObject currentPlatform = platformGenerator.GetSpawnedPlatformsList()[curr];
-            float deadPos = currentPlatform.transform.position.y
-                - currentPlatform.GetComponent<Platform>().yOffset
-                - fallDistance;
+            if (platformGenerator.GetSpawnedPlatformsList().Count > 0) {
+                int curr = 1;
+                if (platformGenerator.GetSpawnedPlatformsList().Count < 2) {
+                    curr = 0;
+                }
+                GameObject currentPlatform = platformGenerator.GetSpawnedPlatformsList()[curr];
+                float deadPos = currentPlatform.transform.position.y
+                    - currentPlatform.GetComponent<Platform>().yOffset
+                    - fallDistance;
 
-            if (playerPos < deadPos) {
-                EndGame();
-		    }
+                if (playerPos < deadPos) {
+                    EndGame();
+                }
 
-            if (player.position.z > (currentPlatform.transform.position.z + currentPlatform.GetComponent<Platform>().zOffset)) {
-                platformGenerator.ClearFirstPlatform();
-			}
+                if (player.position.z > (currentPlatform.transform.position.z + currentPlatform.GetComponent<Platform>().zOffset)) {
+                    platformGenerator.ClearFirstPlatform();
+                }
+            }
 		}
 	}
 
     public void StartGame() {
+        mainMenuUI.enabled = false;
+        postGameMenuUI.Hide();
+
         Restart();
 
+        scoreUI.Show();
         gameState = GameState.Playing;
         playerMovement.AllowMovement();
-        scoreUI.Show();
+        scoreUI.StartTimer();
 	}
 
 	public void EndGame() {
@@ -64,6 +73,13 @@ public class GameManager : MonoBehaviour {
             gameState = GameState.Ended;
 
             scoreUI.Hide();
+            postGameMenuUI.Show();
+
+            int finalScore = scoreUI.GetTime();
+
+            postGameMenuUI.SetScoreText(finalScore);
+
+            scoreUI.ResetTimer();
         }
 	}
 

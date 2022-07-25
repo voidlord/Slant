@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 	public GameManager gameManager;
+	public GameObject player;
 	public Rigidbody rb;
 
 	public float boostAmount = 25;
@@ -11,6 +12,10 @@ public class PlayerMovement : MonoBehaviour {
 	public float maxSpeed = 25;
 	public float forwardForce = 2000f;
 	public float sidewaysForce = 500f;
+
+	void Awake() {
+		StopMovement();
+	}
 
 	void FixedUpdate() {
 		if (gameManager.GameState == GameState.Playing) {
@@ -43,11 +48,11 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	public void AllowMovement() {
-		rb.useGravity = true;
+		rb.constraints = RigidbodyConstraints.None;
 	}
 
 	public void StopMovement() {
-		rb.useGravity = false;
+		rb.constraints = RigidbodyConstraints.FreezeAll;
 
 		rb.velocity = Vector3.zero;
 		rb.angularVelocity = Vector3.zero;
@@ -57,7 +62,7 @@ public class PlayerMovement : MonoBehaviour {
 		maxSpeed = defaultMaxSpeed;
 
 		StopMovement();
-
-		rb.transform.position.Set(0, 5, 0);
+		transform.position = new Vector3(0, 5, 0);
+		transform.rotation = Quaternion.identity;
 	}
 }

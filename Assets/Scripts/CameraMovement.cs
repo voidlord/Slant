@@ -11,6 +11,7 @@ public class CameraMovement : MonoBehaviour {
     void Update() {
         if (gameManager.GameState == GameState.Playing) {
             transform.position = player.position + offset;
+            transform.rotation = Quaternion.identity;
         } else if (gameManager.GameState == GameState.Ended) {
             transform.LookAt(player.position);
 		}
