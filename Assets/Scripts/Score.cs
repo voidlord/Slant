@@ -5,21 +5,16 @@ using TMPro;
 
 public class Score : MonoBehaviour {
 	public GameManager gameManager;
+	public Transform playerPos;
 	public TextMeshProUGUI scoreUIText;
 
-	System.DateTime startTime;
-
-	void Awake() {
-		ResetTimer();
-	}
+	public int unitPerScore = 40;
+	int score;
 
 	void Update() {
 		if (gameManager.GameState == GameState.Playing) {
-			if (startTime == System.DateTime.MinValue) {
-				scoreUIText.text = "0";
-			} else {
-				scoreUIText.text = GetTime().ToString();
-			}
+			score = (int)playerPos.position.z / unitPerScore;
+			scoreUIText.text = score.ToString();
 		}
 	}
 
@@ -31,17 +26,7 @@ public class Score : MonoBehaviour {
 		GetComponent<Canvas>().enabled = false;
 	}
 
-	public void StartTimer() {
-		startTime = System.DateTime.UtcNow;
-	}
-
-	public int GetTime() {
-		System.TimeSpan timeSpan = System.DateTime.UtcNow - startTime;
-
-		return timeSpan.Seconds;
-	}
-
-	public void ResetTimer() {
-		startTime = System.DateTime.MinValue;
+	public int GetScore() {
+		return score;
 	}
 }

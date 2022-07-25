@@ -7,11 +7,15 @@ public class PlayerMovement : MonoBehaviour {
 	public GameObject player;
 	public Rigidbody rb;
 
-	public float boostAmount = 25;
-	public float defaultMaxSpeed = 25;
-	public float maxSpeed = 25;
-	public float forwardForce = 2000f;
-	public float sidewaysForce = 500f;
+	public Material defaultMaterial;
+	public Material boostedMaterial;
+
+	public float boostAmount;
+	public float maxSpeed;
+	public float defaultMaxSpeed;
+	public float forwardForce;
+	public float defaultForwardForce;
+	public float sidewaysForce;
 
 	void Awake() {
 		StopMovement();
@@ -36,14 +40,16 @@ public class PlayerMovement : MonoBehaviour {
 	void Update() {
 		if (gameManager.GameState == GameState.Playing) {
 			if (Input.GetKeyDown(KeyCode.LeftShift)) {
-				maxSpeed = defaultMaxSpeed * 1 + boostAmount;
+				maxSpeed = defaultMaxSpeed * (1 + boostAmount / 100f);
+				forwardForce = defaultForwardForce * (1 + boostAmount / 100f);
+				player.GetComponent<Renderer>().material = boostedMaterial;
 			}
 
 			if (Input.GetKeyUp(KeyCode.LeftShift)) {
 				maxSpeed = defaultMaxSpeed;
+				forwardForce = defaultForwardForce;
+				player.GetComponent<Renderer>().material = defaultMaterial;
 			}
-
-			//Debug.Log(rb.velocity.z + " (" + maxSpeed + " )");
 		}
 	}
 

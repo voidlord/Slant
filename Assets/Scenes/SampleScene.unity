@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: -35.00003}
+  m_AnchoredPosition: {x: 0, y: -35.00003}
   m_SizeDelta: {x: -499.99994, y: -230.00003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &30970707
@@ -314,7 +314,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 220785753}
+  playerPos: {fileID: 1370080958}
   scoreUIText: {fileID: 1950568582}
+  unitPerScore: 40
 --- !u!1 &220785752
 GameObject:
   m_ObjectHideFlags: 0
@@ -1468,6 +1470,7 @@ GameObject:
   - component: {fileID: 1370080955}
   - component: {fileID: 1370080959}
   - component: {fileID: 1370080960}
+  - component: {fileID: 1370080961}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1584,11 +1587,27 @@ MonoBehaviour:
   gameManager: {fileID: 220785753}
   player: {fileID: 1370080954}
   rb: {fileID: 1370080959}
-  boostAmount: 20
-  defaultMaxSpeed: 25
+  defaultMaterial: {fileID: 2100000, guid: f766275ed82c3f444b21e908cb1b8db9, type: 2}
+  boostedMaterial: {fileID: 2100000, guid: 28efe538768f92249a944f14d046b0af, type: 2}
+  boostAmount: 50
   maxSpeed: 25
+  defaultMaxSpeed: 25
   forwardForce: 5000
+  defaultForwardForce: 5000
   sidewaysForce: 250
+--- !u!114 &1370080961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370080954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16589ad23a488c24ba61e2f35a66365b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 220785753}
 --- !u!1 &1376740707
 GameObject:
   m_ObjectHideFlags: 0

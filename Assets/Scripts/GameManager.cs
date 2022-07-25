@@ -66,7 +66,6 @@ public class GameManager : MonoBehaviour {
         scoreUI.Show();
         gameState = GameState.Playing;
         playerMovement.AllowMovement();
-        scoreUI.StartTimer();
 	}
 
 	public void EndGame() {
@@ -76,14 +75,12 @@ public class GameManager : MonoBehaviour {
             scoreUI.Hide();
             postGameMenuUI.Show();
 
-            int finalScore = scoreUI.GetTime();
+            int finalScore = scoreUI.GetScore();
             if (finalScore > highScore) {
                 highScore = finalScore;
 			}
 
             postGameMenuUI.SetScoreText(finalScore, highScore);
-
-            scoreUI.ResetTimer();
         }
 	}
 
