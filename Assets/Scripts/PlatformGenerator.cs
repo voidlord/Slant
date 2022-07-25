@@ -9,8 +9,8 @@ public class PlatformGenerator : MonoBehaviour {
     List<GameObject> spawnedPlatforms;
 
     public int maxSpawn = 20;
-    public float distanceBetween = 1;
-    public float distanceFall = 2;
+    public float distanceBetween = 2;
+    public float distanceFall = 1;
 
     float xOffset = 0;
     float yOffset = 0;

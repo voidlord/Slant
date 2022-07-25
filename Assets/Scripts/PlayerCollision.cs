@@ -14,7 +14,7 @@ public class PlayerCollision : MonoBehaviour {
 		}
 
 		if (collision.collider.tag == "Obstacle") {
-			Debug.Log("Obstacle Hit");
+			gameManager.EndGame();
 		}
 	}
 }

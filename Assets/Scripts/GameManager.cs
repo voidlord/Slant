@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour {
                 }
                 GameObject currentPlatform = platformGenerator.GetSpawnedPlatformsList()[curr];
                 float deadPos = currentPlatform.transform.position.y
-                    - currentPlatform.GetComponent<Platform>().yOffset
+                    + currentPlatform.GetComponent<Platform>().yOffset
                     - fallDistance;
 
                 if (playerPos < deadPos) {

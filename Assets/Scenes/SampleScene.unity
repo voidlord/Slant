@@ -352,6 +352,7 @@ MonoBehaviour:
   mainMenuUI: {fileID: 1137896001}
   postGameMenuUI: {fileID: 1181433262}
   player: {fileID: 1370080958}
+  fallDistance: 15
 --- !u!4 &220785754
 Transform:
   m_ObjectHideFlags: 0
@@ -1774,7 +1775,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 220785753}
   maxSpawn: 20
-  distanceBetween: 1
+  distanceBetween: 2
   distanceFall: 2
 --- !u!4 &1677541050
 Transform:
