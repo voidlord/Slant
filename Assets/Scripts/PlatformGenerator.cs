@@ -32,30 +32,26 @@ public class PlatformGenerator : MonoBehaviour {
 
 	void Start() {
         spawnedPlatforms = new List<GameObject>();
-
-        GameObject start = null;
-
-        for (int i = 0; i < platformPrefabs.Length; i++) {
-            if (platformPrefabs[i].tag == "Start") {
-                start = platformPrefabs[i];
-                break;
-			}
-		}
-
-        if (start) {
-            SpawnPlatform(start);
-		} else {
-            SpawnPlatform(platformPrefabs[0]);
-        }
     }
 
     void FixedUpdate() {
-        while ((!gameManager.GameHasEnded) && (spawnedPlatforms.Count < maxSpawn)) {
+        while ((gameManager.GameState == GameState.Playing) && (spawnedPlatforms.Count < maxSpawn)) {
             int x = 0;
-            if (platformPrefabs.Length > 1) {
-                x = Random.Range(0, platformPrefabs.Length);
-                while (x == lastPlatform) {
+
+            // Make sure the first platform is always the one tagged with "Start"
+            if (lastPlatform == -1) {
+                for (int i = 0; i < platformPrefabs.Length; i++) {
+                    if (platformPrefabs[i].tag == "Start") {
+                        x = i;
+                        break;
+                    }
+                }
+            } else { // Otherwise spawn a random one, unless there is only one platform existing
+                if (platformPrefabs.Length > 1) {
                     x = Random.Range(0, platformPrefabs.Length);
+                    while (x == lastPlatform) {
+                        x = Random.Range(0, platformPrefabs.Length);
+                    }
                 }
             }
 
@@ -68,8 +64,6 @@ public class PlatformGenerator : MonoBehaviour {
         GameObject gameObject;
 
         gameObject = Instantiate<GameObject>(platform);
-
-        Debug.Log(zOffset);
 
         gameObject.transform.SetParent(transform);
         gameObject.transform.Translate(xOffset, yOffset, zOffset + gameObject.GetComponent<Platform>().zOffset / 2);
@@ -92,5 +86,19 @@ public class PlatformGenerator : MonoBehaviour {
             Destroy(spawnedPlatforms[0]);
             spawnedPlatforms.RemoveAt(0);
 		}
+	}
+
+    public void ClearPlatforms() {
+        for (int i = 0; i < spawnedPlatforms.Count; i++) {
+            Destroy(spawnedPlatforms[i]);
+		}
+
+        spawnedPlatforms.Clear();
+
+        xOffset = 0;
+        yOffset = 0;
+        zOffset = 0;
+
+        lastPlatform = -1;
 	}
 }

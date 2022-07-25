@@ -9,9 +9,9 @@ public class CameraMovement : MonoBehaviour {
     public Vector3 offset;
 
     void Update() {
-        if (!gameManager.GameHasEnded) {
+        if (gameManager.GameState == GameState.Playing) {
             transform.position = player.position + offset;
-        } else {
+        } else if (gameManager.GameState == GameState.Ended) {
             transform.LookAt(player.position);
 		}
     }
